@@ -1,6 +1,15 @@
-# Web Development Laravel Starter
+# GreenCycle
 
-Proyecto base para el curso **TM4100**, preparado para desarrollar aplicaciones web con Laravel en un entorno reproducible.
+Aplicación web gamificada donde cada persona usuaria administra un vivero digital. Cada árbol tiene un tipo, nivel, salud, progreso y estado, y el servidor controla las reglas del juego. Proyecto desarrollado para el curso **TM4100**, sobre la plantilla base de Laravel proporcionada por el profesor.
+
+## Alcance actual (Sprint 1)
+
+Al finalizar esta entrega, una persona usuaria puede:
+- Plantar un árbol indicando un tipo de semilla.
+- Consultar el listado de árboles registrados.
+- Consultar el detalle de un árbol específico.
+
+Pendiente para próximas entregas: autenticación de usuarios con Laravel Sanctum, exposición de los endpoints como API REST bajo `/api` con respuestas JSON, autorización por propiedad (que cada usuario solo acceda a sus propios árboles), validación de entrada, y las reglas de cuidado, cooldown, deterioro, cosecha, economía e inventario previstas para Sprint 2 y Sprint 3.
 
 ## Propósito
 
@@ -59,8 +68,8 @@ Antes de instalar el proyecto, asegúrese de contar con:
 Abra PowerShell y ejecute:
 
 ```powershell
-git clone URL_DEL_REPOSITORIO
-Set-Location webdev-laravel-starter
+git clone https://github.com/dylanmopez-sys/Greencycle.git
+Set-Location Greencycle
 ```
 
 ### 2. Aplicar la configuración de Laravel Herd
@@ -116,7 +125,7 @@ DB_URL="URL_DE_NEON_DEVELOPMENT"
 DB_SSLMODE=require
 ```
 
-> Sustituya `URL_DE_NEON_DEVELOPMENT` por la cadena de conexión proporcionada por Neon.
+> Sustituya `URL_DE_NEON_DEVELOPMENT` por la cadena de conexión proporcionada por Neon. Esta cadena nunca debe subirse al repositorio.
 
 ### 7. Limpiar la configuración almacenada
 
@@ -143,8 +152,18 @@ Mantenga esta terminal abierta mientras desarrolla la aplicación.
 Visite la siguiente dirección en el navegador:
 
 ```text
-http://webdev-laravel-starter.test
+http://greencycle.test
 ```
+
+## API (Sprint 1)
+
+Endpoints actualmente disponibles (sin autenticación todavía, ver "Alcance actual"):
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/trees/list` | Lista los árboles registrados. |
+| GET | `/trees/{id}` | Consulta el detalle de un árbol. |
+| GET | `/trees/create/{user_id}/{seed_id}` | Planta un árbol (endpoint de prueba). |
 
 ## Comprobaciones del proyecto
 
@@ -251,26 +270,12 @@ git switch main
 git pull origin main
 ```
 
-## Configuración pendiente
+## Equipo y atribuciones
 
-Antes de distribuir el proyecto, sustituya:
-
-```text
-URL_DEL_REPOSITORIO
-```
-
-por la URL real del repositorio en GitHub.
-
-También debe sustituir:
-
-```text
-URL_DE_NEON_DEVELOPMENT
-```
-
-por la cadena de conexión de la base de datos de desarrollo en Neon.
-
+- Ana Benavides Zúñiga
+- Alessandro López Palma
+- Dylan Molina López
 
 ## Estado del proyecto
+
 El repositorio utiliza GitHub Actions para validar pruebas, formato y recursos frontend.
-=======
-<!-- branch protection test -->
