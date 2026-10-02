@@ -9,11 +9,11 @@ use App\Models\Trees;
 class TreesController extends Controller
 {
     // Plantar un arbol
-    public function create($user_id, $seed_id)
+    public function create(Request $request, $seed_id)
     {
         $tree = new Trees();
 
-        $tree->user_id = $user_id;
+        $tree->user_id = $request->user()->id;
         $tree->seed_id = $seed_id;
         $tree->level = 0;
         $tree->health = 100;
@@ -23,15 +23,14 @@ class TreesController extends Controller
 
         $tree->save();
 
-        return "Arbol plantado exitosamente";
+        return response()->json($tree);
     }
 
     // Mostrar toda la lista de arboles
     public function index()
     {
         $trees = Trees::all();
-
-        return view('trees', compact('trees'));
+        return response()->json($trees);
     }
 
     // Consulta un arbol por su id
@@ -39,7 +38,12 @@ class TreesController extends Controller
     {
         $tree = Trees::find($id);
 
-        return view('tree', compact('tree'));
+        if (!$tree) {
+        return response()->json( [], 404);
+        }
+
+        return response()->json($tree);
+        
     }
     
    
