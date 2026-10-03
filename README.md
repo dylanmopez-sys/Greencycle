@@ -5,11 +5,15 @@ Aplicación web gamificada donde cada persona usuaria administra un vivero digit
 ## Alcance actual (Sprint 1)
 
 Al finalizar esta entrega, una persona usuaria puede:
+- Registrarse e iniciar sesión mediante Laravel Sanctum.
+- Cerrar sesión y consultar sus datos de usuario autenticado.
 - Plantar un árbol indicando un tipo de semilla.
-- Consultar el listado de árboles registrados.
-- Consultar el detalle de un árbol específico.
+- Consultar el listado de sus propios árboles.
+- Consultar el detalle de uno de sus propios árboles.
 
-Pendiente para próximas entregas: autenticación de usuarios con Laravel Sanctum, exposición de los endpoints como API REST bajo `/api` con respuestas JSON, autorización por propiedad (que cada usuario solo acceda a sus propios árboles), validación de entrada, y las reglas de cuidado, cooldown, deterioro, cosecha, economía e inventario previstas para Sprint 2 y Sprint 3.
+Todos los endpoints de árboles están protegidos: requieren autenticación y cada persona solo puede ver o crear árboles propios.
+
+Pendiente para próximas entregas: validación de entrada más completa, las tablas de compras (`purchases`) y efectos activos (`active_effects`) ya contempladas en el modelo de datos pero sin implementar aún, y las reglas de cuidado, cooldown, deterioro, cosecha, economía e inventario previstas para Sprint 2 y Sprint 3.
 
 ## Propósito
 
@@ -157,13 +161,17 @@ http://greencycle.test
 
 ## API (Sprint 1)
 
-Endpoints actualmente disponibles (sin autenticación todavía, ver "Alcance actual"):
+Todos los endpoints responden en formato JSON bajo el prefijo `/api`.
 
-| Método | Ruta | Descripción |
-|---|---|---|
-| GET | `/trees/list` | Lista los árboles registrados. |
-| GET | `/trees/{id}` | Consulta el detalle de un árbol. |
-| GET | `/trees/create/{user_id}/{seed_id}` | Planta un árbol (endpoint de prueba). |
+| Método | Ruta | Descripción | Autenticación |
+|---|---|---|---|
+| POST | `/api/register` | Registra un nuevo usuario. | No |
+| POST | `/api/login` | Inicia sesión y devuelve un token. | No |
+| POST | `/api/logout` | Cierra la sesión del usuario autenticado. | Sí |
+| GET | `/api/user` | Consulta los datos del usuario autenticado. | Sí |
+| GET | `/api/trees` | Lista los árboles del usuario autenticado. | Sí |
+| GET | `/api/trees/{id}` | Consulta el detalle de un árbol propio. | Sí |
+| POST | `/api/trees` | Planta un árbol (body: `seed_id`). | Sí |
 
 ## Comprobaciones del proyecto
 
