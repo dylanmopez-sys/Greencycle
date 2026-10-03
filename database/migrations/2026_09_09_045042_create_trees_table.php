@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('trees', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('seed_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('seed_id')->constrained()->restrictOnDelete();
             $table->integer('level')->default(0);
             $table->integer('health')->default(100);
             $table->integer('progress')->default(0);

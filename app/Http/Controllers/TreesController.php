@@ -13,7 +13,7 @@ class TreesController extends Controller
     {
         $tree = new Trees();
          $request->validate([
-        'seed_id' => ['required', 'integer'],
+        'seed_id' => ['required', 'integer', 'exists:seeds,id'],
         ]);
 
         $tree->user_id = $request->user()->id;
