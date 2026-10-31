@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('level')->default(0);
             $table->integer('health')->default(100);
             $table->integer('progress')->default(0);
-            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
+            $table->enum('status', ['ACTIVE','MATURE','DEAD','HARVESTED'])->default('ACTIVE');
             $table->dateTime('next_care_at')->nullable();
             $table->timestamps();
         });
