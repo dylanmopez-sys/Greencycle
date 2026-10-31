@@ -33,4 +33,24 @@ class User extends Authenticatable
         ];
     }
 
+    public function trees(): HasMany
+    {
+        return $this->hasMany(Trees::class);
+    }
+
+        public function inventory(): HasMany
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
+    public function activeEffects(): HasMany
+    {
+        return $this->hasMany(ActiveEffect::class);
+    }
+
 }
