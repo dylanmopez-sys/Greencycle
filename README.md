@@ -2,7 +2,7 @@
 
 Aplicación web gamificada donde cada persona usuaria administra un vivero digital. Cada árbol tiene un tipo, nivel, salud, progreso y estado, y el servidor controla las reglas del juego. Proyecto desarrollado para el curso **TM4100**, sobre la plantilla base de Laravel proporcionada por el profesor.
 
-## Alcance actual (Sprint 1)
+## Alcance actual (Sprint 1 y Sprint 2)
 
 Al finalizar esta entrega, una persona usuaria puede:
 - Registrarse e iniciar sesión mediante Laravel Sanctum.
@@ -10,10 +10,13 @@ Al finalizar esta entrega, una persona usuaria puede:
 - Plantar un árbol indicando un tipo de semilla.
 - Consultar el listado de sus propios árboles.
 - Consultar el detalle de uno de sus propios árboles.
+- Cuidar un árbol propio: suma progreso, recupera 20 puntos de salud (máximo 100), sube de nivel cada 5 cuidados y pasa a `MATURE` al llegar al nivel 10.
+- El servidor aplica un cooldown de 60 minutos entre cuidados y no permite cuidar árboles que no estén en estado `ACTIVE`.
+- Solo el dueño del árbol puede cuidarlo (si no lo es, responde 403).
 
 Todos los endpoints de árboles están protegidos: requieren autenticación y cada persona solo puede ver o crear árboles propios.
 
-Pendiente para próximas entregas: validación de entrada más completa, las tablas de compras (`purchases`) y efectos activos (`active_effects`) ya contempladas en el modelo de datos pero sin implementar aún, y las reglas de cuidado, cooldown, deterioro, cosecha, economía e inventario previstas para Sprint 2 y Sprint 3.
+Pendiente para próximas entregas: deterioro de salud por tiempo y Scheduler, cosecha, monedas, tienda, inventario y mejoras. Las tablas `items`, `inventory`, `purchases` y `active_effects` ya existen en las migraciones, pero su lógica todavía no está implementada.
 
 ## Propósito
 
@@ -159,7 +162,7 @@ Visite la siguiente dirección en el navegador:
 http://greencycle.test
 ```
 
-## API (Sprint 1)
+## API
 
 Todos los endpoints responden en formato JSON bajo el prefijo `/api`.
 
@@ -172,6 +175,7 @@ Todos los endpoints responden en formato JSON bajo el prefijo `/api`.
 | GET | `/api/trees` | Lista los árboles del usuario autenticado. | Sí |
 | GET | `/api/trees/{id}` | Consulta el detalle de un árbol propio. | Sí |
 | POST | `/api/trees` | Planta un árbol (body: `seed_id`). | Sí |
+| POST | `/api/trees/{tree}/care` | Aplica un cuidado a un árbol propio (403 si es ajeno; 409 si hay cooldown o el estado no es `ACTIVE`). | Sí |
 
 ## Comprobaciones del proyecto
 
@@ -182,6 +186,7 @@ Antes de crear un commit o un pull request, ejecute las siguientes comprobacione
 ```powershell
 php artisan test
 ```
+Incluye `tests/Feature/TreeCareTest.php`, con 5 escenarios del endpoint de cuidado: cuidado exitoso, cooldown, ascenso de nivel, `MATURE` y acceso a un árbol ajeno.
 
 ### Comprobar el formato del código PHP
 
