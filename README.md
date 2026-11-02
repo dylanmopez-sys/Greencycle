@@ -48,7 +48,6 @@ El proyecto utiliza las siguientes tecnologías:
 - PostgreSQL en Neon.
 - PHPUnit.
 - Laravel Pint.
-- GitHub Actions.
 - Render.
 
 ## Requisitos locales
@@ -291,4 +290,4 @@ git pull origin main
 
 ## Estado del proyecto
 
-El repositorio utiliza GitHub Actions para validar pruebas, formato y recursos frontend.
+Las pruebas se ejecutan de forma local con `php artisan test`. El repositorio todavía no tiene integración continua configurada.
