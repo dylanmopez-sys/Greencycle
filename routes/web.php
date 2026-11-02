@@ -4,6 +4,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TreesController;
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 // Plantar arbol
 //Route::post('/trees/create/{user_id}/{seed_id}', [TreesController::class, 'create']);
 
